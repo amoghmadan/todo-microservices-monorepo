@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "auth"
+version = "0.1.0"
+description = "Simple auth module in a monorepo."
+readme = "README.md"
+authors = [{ name = "Amogh Madan", email = "amoghmadaan@gmail.com" }]
+license = { text = "Other/Proprietary License" }
+requires-python = ">=3.12,<3.14"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Framework :: Flask",
+    "Framework :: Flask :: 3",
+    "Framework :: Flask :: 3.1",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Internet",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Internet :: WWW/HTTP :: WSGI",
+]
+dependencies = [
+    "blinker==1.9.0",
+    "click==8.2.1",
+    "colorama==0.4.6",
+    "Flask==3.1.1",
+    "flask-marshmallow==1.3.0",
+    "Flask-SQLAlchemy==3.1.1",
+    "greenlet==3.2.3",
+    "itsdangerous==2.2.0",
+    "Jinja2==3.1.6",
+    "MarkupSafe==3.0.2",
+    "marshmallow==4.0.0",
+    "marshmallow-sqlalchemy==1.4.2",
+    "PyJWT==2.10.1",
+    "SQLAlchemy==2.0.41",
+    "typing_extensions==4.14.0",
+    "Werkzeug==3.1.3",
+]
+
+[project.optional-dependencies]
+deployment = ["gunicorn==23.0.0"]
+
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,16 @@
+{
+  "name": "todo-service",
+  "version": "0.1.0",
+  "description": "Todo Microservice",
+  "keywords": [
+    "Todo",
+    "Microservice"
+  ],
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Amogh Madan <amoghmadaan@gmail.com>",
+  "type": "commonjs",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

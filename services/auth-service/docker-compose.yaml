@@ -1,0 +1,9 @@
+services:
+  app:
+    build: .
+    container_name: application
+    env_file:
+      - .env
+    image: auth-service:latest
+    ports:
+      - "8000:8000"
