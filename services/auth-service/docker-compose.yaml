@@ -1,7 +1,19 @@
 services:
-  app:
+  auth-database:
+    container_name: auth-database
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: toor
+      POSTGRES_DB: auth
+    image: postgres:17
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - ./db:/var/lib/postgresql/data
+  auth-application:
     build: .
-    container_name: application
+    container_name: auth-application
     env_file:
       - .env
     image: auth-service:latest
