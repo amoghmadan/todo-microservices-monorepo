@@ -1,0 +1,37 @@
+services:
+  kong-database:
+    image: postgres:17
+    container_name: kong-database
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_DB: kong
+      POSTGRES_PASSWORD: toor
+    volumes:
+      - ./db:/var/lib/postgresql/data
+
+  kong-migrations:
+    image: kong/kong-gateway:3.9
+    container_name: kong-migrations
+    depends_on:
+      - kong-database
+    entrypoint: >
+      /bin/sh -c "kong migrations bootstrap -c /etc/kong/kong.conf &&
+                  kong migrations up -c /etc/kong/kong.conf &&
+                  kong migrations finish -c /etc/kong/kong.conf"
+
+  kong:
+    command: kong start -c /etc/kong/kong.conf
+    container_name: kong
+    depends_on:
+      - kong-database
+      - kong-migrations
+    image: kong/kong-gateway:3.9
+    restart: always
+    volumes:
+      - ./kong.conf:/etc/kong/kong.conf
+    ports:
+      - "8000:8000"   # Proxy HTTP
+      - "8443:8443"   # Proxy HTTPS
+      - "8001:8001"   # Admin API
+      - "8444:8444"   # Admin API HTTPS
