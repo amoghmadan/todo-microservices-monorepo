@@ -1,13 +1,17 @@
 services:
-  db:
-    container_name: database
+  todo-database:
+    container_name: todo-database
     image: mongo:latest
     ports:
       - 27017:27017
+    volumes:
+      - ./db:/data/db
   
-  app:
+  todo-application:
     build: .
-    container_name: application
+    container_name: todo-application
+    env_file:
+      - .env
     image: todo-service:latest
     ports:
       - 3000:3000

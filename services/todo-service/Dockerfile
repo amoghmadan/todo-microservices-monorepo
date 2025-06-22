@@ -19,6 +19,6 @@ USER $USERNAME
 COPY --chown=$USERNAME:$USERNAME . .
 
 # Install dependencies
-npm i --location=project
+RUN npm i --location=project
 
 CMD ["npm", "start"]
