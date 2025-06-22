@@ -2,13 +2,12 @@
 FROM python:3.13-slim-bookworm
 
 # Set username, home path and venv path
-ARG USERNAME=auth
-ARG HOME=/home/$USERNAME
-ARG VENV_PATH=$HOME/.venv
+ARG USERNAME=auth \
+    HOME=/home/$USERNAME \
+    VENV_PATH=$HOME/.venv
 
 # Create a new user and group called 'user'
-RUN groupadd -r $USERNAME
-RUN useradd -r -g $USERNAME -m -d $HOME $USERNAME
+RUN groupadd -r $USERNAME && useradd -r -g $USERNAME -m -d $HOME $USERNAME
 
 # Set the working directory to the app location and change ownership
 WORKDIR $HOME/auth-service

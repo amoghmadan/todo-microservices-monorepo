@@ -66,7 +66,6 @@ class RegisterView(views.MethodView):
         schema = self.schema_class()
         try:
             instance = schema.load(data=request.json)
-            breakpoint()
             db.session.add(instance)
             db.session.commit()
             db.session.refresh(instance)
