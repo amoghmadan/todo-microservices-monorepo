@@ -9,7 +9,7 @@ from sqlalchemy.exc import IntegrityError
 from auth.models import User
 from auth.schemas import TokenSchema, UserSchema
 from auth.utils import db
-from auth.utils.decorators import TokenAuthentication
+from auth.utils.decorators import GatewayAuthentication
 
 
 class LoginView(views.MethodView):
@@ -48,7 +48,7 @@ class LoginView(views.MethodView):
 class DetailView(views.MethodView):
     """Detail View"""
 
-    decorators = [TokenAuthentication()]
+    decorators = [GatewayAuthentication()]
     schema_class = UserSchema
 
     def get(self, *args, **kwargs):

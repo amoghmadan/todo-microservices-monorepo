@@ -1,3 +1,3 @@
-from auth.utils.decorators.authentication import TokenAuthentication
+from auth.utils.decorators.authentication import GatewayAuthentication
 
-__all__ = ["TokenAuthentication"]
+__all__ = ["GatewayAuthentication"]

@@ -1,32 +1,29 @@
 from functools import wraps
 from http import HTTPStatus
 
-import jwt
 from flask import abort, current_app, jsonify, make_response, request
 
 from auth.models import User
 
 
-class TokenAuthentication:
-    """Authentication: Token"""
+class GatewayAuthentication:
+    """Authentication: Gateway"""
 
-    keyword = "Bearer"
     model = User
+    id_header = "x-user-id"
+    email_header = "x-user-email"
 
     def __call__(self, get_response):
         @wraps(get_response)
         def authenticate(*args, **kwargs):
-            authorization = request.headers.get("Authorization")
             try:
-                if authorization is None:
-                    raise ValueError("Invalid authorization.")
-                keyword, token = authorization.split()
-                if keyword.title() != self.keyword:
-                    raise ValueError("Invalid keyword.")
-                decoded = jwt.decode(token, current_app.secret_key, algorithms=[current_app.config["ALGORITHM"]])
-                current_user = self.model.query.filter_by(id=decoded["id"]).first()
+                id_ = int(request.headers.get(self.id_header))
+                email = request.headers.get(self.email_header)
+                if id_ is None or email is None:
+                    raise ValueError('"id" or "email" is None.')
+                current_user = self.model.query.filter_by(id=id_, email=email).first()
                 if current_user is None:
-                    raise ValueError("Invalid token.")
+                    raise ValueError("Invalid User ID or Email.")
                 setattr(request, "user", current_user)
             except (AttributeError, ValueError):
                 abort(
