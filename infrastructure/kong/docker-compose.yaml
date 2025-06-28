@@ -19,6 +19,8 @@ services:
       /bin/sh -c "kong migrations bootstrap -c /etc/kong/kong.conf &&
                   kong migrations up -c /etc/kong/kong.conf &&
                   kong migrations finish -c /etc/kong/kong.conf"
+    volumes:
+      - ./kong.conf:/etc/kong/kong.conf
 
   kong:
     command: kong start -c /etc/kong/kong.conf
