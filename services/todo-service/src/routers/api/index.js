@@ -6,7 +6,7 @@ const urlpatterns = new Map([["/v1", v1]]);
 
 const api = Router();
 urlpatterns.forEach((router, url) => {
-    api.use(url, router);
+  api.use(url, router);
 });
 
 module.exports = api;
